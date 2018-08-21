@@ -1,0 +1,29 @@
+{
+  "name": "apostrophe-rich-text-enhancements",
+  "version": "2.0.0",
+  "description": "Enhances ApostropheCMS rich text widgets with smart links, rich inline tooltips, and in-text variable replacement",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apostrophecms/apostrophe-rich-text-enhancements.git"
+  },
+  "keywords": [
+    "apostrophecms",
+    "apostrophe",
+    "cms",
+    "apostrophe",
+    "cms",
+    "content",
+    "management",
+    "system"
+  ],
+  "author": "P'unk Avenue LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apostrophecms/apostrophe-rich-text-enhancements/issues"
+  },
+  "homepage": "https://github.com/apostrophecms/apostrophe-rich-text-enhancements#readme"
+}
