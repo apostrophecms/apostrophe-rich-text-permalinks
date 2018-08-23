@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/apostrophecms/apostrophe-rich-text-enhancements/issues"
   },
-  "homepage": "https://github.com/apostrophecms/apostrophe-rich-text-enhancements#readme"
+  "homepage": "https://github.com/apostrophecms/apostrophe-rich-text-enhancements#readme",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
 }

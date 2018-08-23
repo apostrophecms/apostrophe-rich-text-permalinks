@@ -7,31 +7,47 @@ apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
 
   source: 'permalink-editor',
 
+  extend: 'apostrophe-modal',
+
   construct: function(self, options) {
-    self.schema = [ options.permalink.join ];
+
+    console.log('instantiated');
+    console.log(apos.modules['apostrophe-rich-text-enhancements']);
+    var permalink = apos.modules['apostrophe-rich-text-enhancements'].options.permalink;
+    if (!permalink) {
+      return;
+    }
+    console.log('has functionality');
+
+    self.schema = [ permalink.join ];
 
     var superBeforeShow = self.beforeShow;
     self.beforeShow = function(callback) {
       self.$form = self.$el.find('[data-apos-form]');
-      self.$el.css('opacity', 0);
-      self.chooser = self.$el.find('[data-chooser]:first').data('aposChooser');
+      // self.$el.css('opacity', 0);
+      console.log(self.$form.html());
+      console.log('populating');
       return apos.schemas.populate(self.$form, self.schema, {}, callback);
     };
 
     var superAfterShow = self.afterShow;
     self.afterShow = function() {
-      superAfterShow();
-      var superAfterManagerSave = self.chooser.afterManagerSave;
-      self.chooser.afterManagerSave = function() {
-        superAfterManagerSave();
-        self.save();
-      };
-      var superAfterManagerCancel = self.chooser.afterManagerCancel;
-      self.chooser.afterManagerCancel = function() {
-        superAfterManagerCancel();
-        self.$el.css('opacity', 1);
-        self.cancel();
-      };
+      self.chooser = self.$el.find('[data-chooser]:first').data('aposChooser');
+      console.log('afterShow');
+      // superAfterShow();
+      // var superAfterManagerSave = self.chooser.afterManagerSave;
+      // self.chooser.afterManagerSave = function() {
+      //   superAfterManagerSave();
+      //   self.save();
+      // };
+      // var superAfterManagerCancel = self.chooser.afterManagerCancel;
+      // self.chooser.afterManagerCancel = function() {
+      //   superAfterManagerCancel();
+      //   self.$el.css('opacity', 1);
+      //   self.cancel();
+      // };
+      // console.log(self.chooser.launchBrowser);
+      // self.chooser.launchBrowser();
     };
 
     self.saveContent = function(callback) {
@@ -40,8 +56,13 @@ apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
         if (err) {
           return callback(err);
         }
-        self.result = output;
-        return callback(null);
+        return self.api('info', { _id: output.docId }, function(result) {
+          if (result.status !== 'ok') {
+            return callback(result.status);
+          }
+          self.result = result.doc;
+          return callback(null);
+        });
       });
     };
 
@@ -57,6 +78,7 @@ apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
 
 apos.define('apostrophe-rich-text-enhancements', {
   construct: function(self, options) {
+    self.options = options;
     console.log('instantiating');
 
     CKEDITOR.plugins.addExternal('permalink', '/modules/apostrophe-rich-text-enhancements/js/ckeditorPlugins/permalink/', 'plugin.js');
