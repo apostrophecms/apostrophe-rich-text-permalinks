@@ -4,29 +4,29 @@ CKEDITOR.plugins.add('permalink', {
     var superParseLinkAttributes = linkPlugin.parseLinkAttributes;
     linkPlugin.parseLinkAttributes = function(editor, element) {
       var href = (element && (element.data('cke-saved-href') || element.getAttribute('href'))) || '';
-      console.log('href is ' + href);
       var result = superParseLinkAttributes.call(this, editor, element);
-      var matches = href.match(/^\#apostrophe-permalink-(.*)$/);
-      console.log(matches);
+      var matches = href.match(/^\#apostrophe-permalink-(.*)\?updateTitle=(\d)$/);
       if (!matches) {
+        // defaults to true so if we do switch to a doc link it will be selected
+        result.docUpdateTitle = true;
         return result;
       }
       return {
         type: 'doc',
-        docId: matches[1]
+        docId: matches[1],
+        docUpdateTitle: !!parseInt(matches[2])
       };
     };
 
     var superGetLinkAttributes = linkPlugin.getLinkAttributes;
     linkPlugin.getLinkAttributes = function(editor, data) {
       var result = superGetLinkAttributes.call(this, editor, data);
-      console.log(data);
       var result = (function() {
         if ((data.type === 'doc') && data.docId) {
           var id = data.docId;
           return {
             set: {
-              href: '#apostrophe-permalink-' + id
+              'data-cke-saved-href': '#apostrophe-permalink-' + id + '?updateTitle=' + (data.docUpdateTitle ? '1' : '0')
             },
             removed: result.removed
           };
@@ -37,13 +37,11 @@ CKEDITOR.plugins.add('permalink', {
 
         return result;
       })();
-      console.log(result);
       return result;
     };
 
     CKEDITOR.on('dialogDefinition', function(e) {
 
-      console.log('in handler');
       if ((e.data.name !== 'link') || (e.editor !== editor)) {
         return;
       }
@@ -60,6 +58,9 @@ CKEDITOR.plugins.add('permalink', {
             type: 'button',
             id: 'docBrowse',
             label: 'Browse Documents',
+            setup: function(data) {
+              this.aposDocId = data.docId;
+            },
             onClick: function() {
               var el = this;
               var $onTopOfCkeditor = $('<style>.apos-modal-blackout { z-index: 11000; } .apos-ui.apos-modal { z-index: 11100; }</style>');
@@ -70,14 +71,50 @@ CKEDITOR.plugins.add('permalink', {
                   // No change for now
                   return;
                 }
-                console.log(el);
                 el.aposDocId = doc._id;
+                el.getDialog().getContentElement('info', 'linkDisplayText').setValue(doc.title);
+                el.getDialog().getContentElement('info', 'docChosen').setValue(doc.title);
               });
             },
             commit: function(data) {
               data.docId = this.aposDocId;
             }
-          }
+          },
+          {
+            type: 'text',
+            id: 'docChosen',
+            label: 'Document Chosen',
+            required: false,
+            setup: function(data) {
+              this.disable();
+              var el = this;
+              if (data.docId) {
+                return $.jsonCall('/modules/apostrophe-rich-text-enhancements/info', { _id: data.docId }, function(result) {
+                  if (result.status !== 'ok') {
+                    el.setValue('');
+                  } else {
+                    el.setValue(result.doc.title);
+                  }
+                });
+              } else {
+                el.setValue('');
+              }
+            }
+          },
+          {
+            type: 'checkbox',
+            id: 'docUpdateTitle',
+            label: 'Always Show Current Title',
+            required: false,
+            setup: function(data) {
+              if (data.docUpdateTitle) {
+                this.setValue('checked', 'checked');
+              }
+            },
+            commit: function(data) {
+              data.docUpdateTitle = !!this.getValue();
+            }
+          },
         ]
       });
 

@@ -11,43 +11,36 @@ apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
 
   construct: function(self, options) {
 
-    console.log('instantiated');
-    console.log(apos.modules['apostrophe-rich-text-enhancements']);
     var permalink = apos.modules['apostrophe-rich-text-enhancements'].options.permalink;
     if (!permalink) {
       return;
     }
-    console.log('has functionality');
 
     self.schema = [ permalink.join ];
 
     var superBeforeShow = self.beforeShow;
     self.beforeShow = function(callback) {
       self.$form = self.$el.find('[data-apos-form]');
-      // self.$el.css('opacity', 0);
-      console.log(self.$form.html());
-      console.log('populating');
+      self.$form.css('opacity', 0);
       return apos.schemas.populate(self.$form, self.schema, {}, callback);
     };
 
     var superAfterShow = self.afterShow;
     self.afterShow = function() {
       self.chooser = self.$el.find('[data-chooser]:first').data('aposChooser');
-      console.log('afterShow');
-      // superAfterShow();
-      // var superAfterManagerSave = self.chooser.afterManagerSave;
-      // self.chooser.afterManagerSave = function() {
-      //   superAfterManagerSave();
-      //   self.save();
-      // };
-      // var superAfterManagerCancel = self.chooser.afterManagerCancel;
-      // self.chooser.afterManagerCancel = function() {
-      //   superAfterManagerCancel();
-      //   self.$el.css('opacity', 1);
-      //   self.cancel();
-      // };
-      // console.log(self.chooser.launchBrowser);
-      // self.chooser.launchBrowser();
+      superAfterShow();
+      var superAfterManagerSave = self.chooser.afterManagerSave;
+      self.chooser.afterManagerSave = function() {
+        superAfterManagerSave();
+        self.save();
+      };
+      var superAfterManagerCancel = self.chooser.afterManagerCancel;
+      self.chooser.afterManagerCancel = function() {
+        superAfterManagerCancel();
+        self.$el.css('opacity', 1);
+        self.cancel();
+      };
+      self.chooser.launchBrowser();
     };
 
     self.saveContent = function(callback) {
@@ -79,10 +72,8 @@ apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
 apos.define('apostrophe-rich-text-enhancements', {
   construct: function(self, options) {
     self.options = options;
-    console.log('instantiating');
 
     CKEDITOR.plugins.addExternal('permalink', '/modules/apostrophe-rich-text-enhancements/js/ckeditorPlugins/permalink/', 'plugin.js');
-    console.log('after addExternal');
 
     self.choosePermalink = function(callback) {
       return apos.create('apostrophe-rich-text-enhancements-permalink-editor', _.assign({

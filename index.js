@@ -13,6 +13,8 @@ module.exports = {
     self.pushCreateSingleton();
   },
   construct: function(self, options) {
+    console.log('self.options.permalink');
+    console.log(self.options.permalink);
     if (self.options.permalink) {
       if (!self.options.permalink.join) {
         self.options.permalink = {
@@ -29,7 +31,17 @@ module.exports = {
         type: 'joinByOne',
         idField: 'docId'
       });
+      self.route('post', 'permalink-editor', function(req, res) {
+        var schema = [
+          self.options.permalink.join
+        ];
+        self.apos.schemas.bless(req, schema);
+        return res.send(self.render(req, 'permalinkEditor', {
+          schema: schema
+        }));
+      });
     }
+
     self.pushAsset('script', 'user', { when: 'user' });
     var superGetCreateSingletonOptions = self.getCreateSingletonOptions;
     self.getCreateSingletonOptions = function() {
@@ -37,15 +49,7 @@ module.exports = {
       options.permalink = self.options.permalink;
       return options;
     };
-    self.route('post', 'permalink-editor', function(req, res) {
-      var schema = [
-        self.options.permalink.join
-      ];
-      self.apos.schemas.bless(req, schema);
-      return res.send(self.render(req, 'permalinkEditor', {
-        schema: schema
-      }));
-    });
+
     // Used to get the title of a permalinked doc after insertion
     self.route('post', 'info', function(req, res) {
       var _id = self.apos.launder.id(req.body._id);
