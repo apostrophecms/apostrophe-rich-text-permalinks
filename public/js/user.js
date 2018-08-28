@@ -3,7 +3,7 @@
 // actual display of the modal, but still benefit from the existing functionality to
 // populate and convert joins. -Tom
 
-apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
+apos.define('apostrophe-rich-text-permalinks-editor', {
 
   source: 'permalink-editor',
 
@@ -11,12 +11,7 @@ apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
 
   construct: function(self, options) {
 
-    var permalink = apos.modules['apostrophe-rich-text-enhancements'].options.permalink;
-    if (!permalink) {
-      return;
-    }
-
-    self.schema = [ permalink.join ];
+    self.schema = [ options.join ];
 
     var superBeforeShow = self.beforeShow;
     self.beforeShow = function(callback) {
@@ -69,14 +64,14 @@ apos.define('apostrophe-rich-text-enhancements-permalink-editor', {
   }
 });
 
-apos.define('apostrophe-rich-text-enhancements', {
+apos.define('apostrophe-rich-text-permalinks', {
   construct: function(self, options) {
     self.options = options;
 
-    CKEDITOR.plugins.addExternal('permalink', '/modules/apostrophe-rich-text-enhancements/js/ckeditorPlugins/permalink/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('permalink', '/modules/apostrophe-rich-text-permalinks/js/ckeditorPlugins/permalink/', 'plugin.js');
 
     self.choosePermalink = function(callback) {
-      return apos.create('apostrophe-rich-text-enhancements-permalink-editor', _.assign({
+      return apos.create('apostrophe-rich-text-permalinks-editor', _.assign({
         callback: callback
       }, options));
     };

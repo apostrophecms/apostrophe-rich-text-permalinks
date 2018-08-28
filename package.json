@@ -1,5 +1,5 @@
 {
-  "name": "apostrophe-rich-text-enhancements",
+  "name": "apostrophe-rich-text-permalinks",
   "version": "2.0.0",
   "description": "Enhances ApostropheCMS rich text widgets with smart links, rich inline tooltips, and in-text variable replacement",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apostrophecms/apostrophe-rich-text-enhancements.git"
+    "url": "git+https://github.com/apostrophecms/apostrophe-rich-text-permalinks.git"
   },
   "keywords": [
     "apostrophecms",
@@ -23,9 +23,9 @@
   "author": "P'unk Avenue LLC",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/apostrophecms/apostrophe-rich-text-enhancements/issues"
+    "url": "https://github.com/apostrophecms/apostrophe-rich-text-permalinks/issues"
   },
-  "homepage": "https://github.com/apostrophecms/apostrophe-rich-text-enhancements#readme",
+  "homepage": "https://github.com/apostrophecms/apostrophe-rich-text-permalinks#readme",
   "dependencies": {
     "lodash": "^4.17.10"
   }

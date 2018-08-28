@@ -65,7 +65,7 @@ CKEDITOR.plugins.add('permalink', {
               var el = this;
               var $onTopOfCkeditor = $('<style>.apos-modal-blackout { z-index: 11000; } .apos-ui.apos-modal { z-index: 11100; }</style>');
               $('body').append($onTopOfCkeditor);
-              return apos.modules['apostrophe-rich-text-enhancements'].choosePermalink(function(err, doc) {
+              return apos.modules['apostrophe-rich-text-permalinks'].choosePermalink(function(err, doc) {
                 $onTopOfCkeditor.remove();
                 if (err) {
                   // No change for now
@@ -89,7 +89,7 @@ CKEDITOR.plugins.add('permalink', {
               this.disable();
               var el = this;
               if (data.docId) {
-                return $.jsonCall('/modules/apostrophe-rich-text-enhancements/info', { _id: data.docId }, function(result) {
+                return $.jsonCall('/modules/apostrophe-rich-text-permalinks/info', { _id: data.docId }, function(result) {
                   if (result.status !== 'ok') {
                     el.setValue('');
                   } else {

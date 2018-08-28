@@ -1,5 +1,5 @@
 var modules = [
-  'apostrophe-rich-text-enhancements-rich-text-widgets'
+  'apostrophe-rich-text-permalinks-rich-text-widgets'
 ];
 
 var _ = require('lodash');
@@ -13,44 +13,37 @@ module.exports = {
     self.pushCreateSingleton();
   },
   construct: function(self, options) {
-    console.log('self.options.permalink');
-    console.log(self.options.permalink);
-    if (self.options.permalink) {
-      if (!self.options.permalink.join) {
-        self.options.permalink = {
-          join: {
-            withType: 'apostrophe-page'
-          }
-        }
-      }
-      _.defaults(self.options.permalink.join, {
-        label: 'Page'
-      });
-      _.assign(self.options.permalink.join, {
-        name: '_doc',
-        type: 'joinByOne',
-        idField: 'docId'
-      });
-      self.route('post', 'permalink-editor', function(req, res) {
-        var schema = [
-          self.options.permalink.join
-        ];
-        self.apos.schemas.bless(req, schema);
-        return res.send(self.render(req, 'permalinkEditor', {
-          schema: schema
-        }));
-      });
+    if (!self.options.join) {
+      self.options.join = {};
     }
+    _.defaults(self.options.join, {
+      label: 'Page',
+      withType: 'apostrophe-page'
+    });
+    _.assign(self.options.join, {
+      name: '_doc',
+      type: 'joinByOne',
+      idField: 'docId'
+    });
+    self.route('post', 'permalink-editor', function(req, res) {
+      var schema = [
+        self.options.join
+      ];
+      self.apos.schemas.bless(req, schema);
+      return res.send(self.render(req, 'permalinkEditor', {
+        schema: schema
+      }));
+    });
 
     self.pushAsset('script', 'user', { when: 'user' });
     var superGetCreateSingletonOptions = self.getCreateSingletonOptions;
     self.getCreateSingletonOptions = function() {
       var options = superGetCreateSingletonOptions();
-      options.permalink = self.options.permalink;
+      options.join = self.options.join;
       return options;
     };
 
-    // Used to get the title of a permalinked doc after insertion
+    // Used to get the title and _url of a permalinked doc after insertion
     self.route('post', 'info', function(req, res) {
       var _id = self.apos.launder.id(req.body._id);
       if (!_id) {
@@ -63,7 +56,7 @@ module.exports = {
         if (!doc) {
           return res.send({ status: 'notfound' });
         }
-        return res.send({ status: 'ok', doc: _.pick(doc, '_id', 'title') });
+        return res.send({ status: 'ok', doc: _.pick(doc, '_id', 'title', '_url') });
       });
     });
   }
