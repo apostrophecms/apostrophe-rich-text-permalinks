@@ -48,6 +48,10 @@ modules: {
 
 You may successfully create permalinks to any type of document that has a `_url` property when loaded, i.e. pieces that have corresponding `pieces-pages`, as well as regular pages.
 
+## Changing the label and buttons
+
+By default, the new item on the "Link Type" dropdown and the "Browse" button both get labels based on the type of document you are joining with. But if you want to change this language, or you are using an array of types and find the word "Documents" underwhelming, you can set the `browseLabel` and `typeLabel` options of this module as you see fit.
+
 ## Things to be aware of
 
 **While users are logged in with editing privileges,** the link will look like this:

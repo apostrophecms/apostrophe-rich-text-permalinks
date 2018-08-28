@@ -40,6 +40,38 @@ module.exports = {
     self.getCreateSingletonOptions = function() {
       var options = superGetCreateSingletonOptions();
       options.join = self.options.join;
+      options.browseLabel = self.options.browseLabel;
+      options.typeLabel = self.options.typeLabel;
+      var singular;
+      if (options.typeLabel) {
+        if (!options.browseLabel) {
+          options.browseLabel = 'Browse ' + options.typeLabel;
+        }
+      }
+      if (!options.typeLabel) {
+        if (Array.isArray(options.join.withType) && (options.join.withType.length === 1)) {
+          singular = options.join.withType[0];
+        } else if ((typeof options.join.withType) === 'string') {
+          singular = options.join.withType;
+        }
+        if (singular) {
+          var manager = self.apos.docs.getManager(options.join.withType);
+          if (manager && manager.pluralLabel) {
+            options.typeLabel = manager.pluralLabel;
+            options.browseLabel = 'Browse ' + manager.pluralLabel;
+          }
+        }
+        if (!options.browseLabel) {
+          if (singular === 'apostrophe-page') {
+            options.typeLabel = 'Pages';
+            options.browseLabel = 'Browse Pages';
+          }
+        }
+        if (!options.typeLabel) {
+          options.typeLabel = 'Documents';
+          options.browseLabel = 'Browse Documents';
+        }
+      }
       return options;
     };
 

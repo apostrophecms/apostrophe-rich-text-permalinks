@@ -49,7 +49,7 @@ CKEDITOR.plugins.add('permalink', {
       var definition = e.data.definition;
 
       var linkType = get('linkType');
-      linkType.items.push([ 'Document', 'doc' ]);
+      linkType.items.push([ apos.modules['apostrophe-rich-text-permalinks'].options.typeLabel, 'doc' ]);
       definition.contents[0].elements.push({
         type: 'vbox',
         id: 'docOptions',
@@ -57,7 +57,7 @@ CKEDITOR.plugins.add('permalink', {
           {
             type: 'button',
             id: 'docBrowse',
-            label: 'Browse Documents',
+            label: apos.modules['apostrophe-rich-text-permalinks'].options.browseLabel,
             setup: function(data) {
               this.aposDocId = data.docId;
             },
