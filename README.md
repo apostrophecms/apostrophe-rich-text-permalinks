@@ -1,7 +1,7 @@
-<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-pieces-orderings-bundle/master/screenshots/screenshot-1.png" />
-<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-pieces-orderings-bundle/master/screenshots/screenshot-2.png" />
-<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-pieces-orderings-bundle/master/screenshots/screenshot-3.png" />
-<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-pieces-orderings-bundle/master/screenshots/screenshot-4.png" />
+<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-1.png" />
+<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-2.png" />
+<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-3.png" />
+<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-4.png" />
 
 ```
 npm install apostrophe-rich-text-permalinks
