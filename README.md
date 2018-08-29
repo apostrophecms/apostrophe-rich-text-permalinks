@@ -1,7 +1,22 @@
+With this module, your users can create a link to a page in [ApostropheCMS](https://apostrophecms.org)...
+
 <img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-1.png" />
+
+By picking "Pages" from the "Link Types" menu in CKEditor...
+
 <img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-2.png" />
+
+Then choosing a page in Apostrophe's page tree.
+
 <img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-3.png" />
-<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-4.png" />
+
+Users can click the usual "link" icon in the rich text editor, then pick "Document" from the "Link Types" dropdown menu.
+
+Now they can click the "Browse Documents" button and select the page they wish to link to.
+
+**The resulting link will always stay up to date, even if the page moves around the site and its slug changes.** This is the main advantage, in addition to the simple convenience of picking a page via the page tree.
+
+## Installation
 
 ```
 npm install apostrophe-rich-text-permalinks
@@ -13,14 +28,6 @@ modules: {
   'apostrophe-rich-text-permalinks': {}
 }
 ```
-
-## Linking to pages
-
-Users can click the usual "link" icon in the rich text editor, then pick "Document" from the "Link Types" dropdown menu.
-
-Now they can click the "Browse Documents" button and select the page they wish to link to.
-
-**The resulting link will always stay up to date, even if the page moves around the site and its slug changes.** This is the main advantage, in addition to the simple convenience of picking a page via the page tree.
 
 ## Linking to other document types
 
