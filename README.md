@@ -1,14 +1,14 @@
 With this module, your users can create a link to a page in [ApostropheCMS](https://apostrophecms.org)...
 
--><img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-1.png" /><-
+<p align="center"><img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-1.png" /></p>
 
 By picking "Pages" from the "Link Types" menu in CKEditor...
 
--><img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-2.png" /><-
+<p align="center"><img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-2.png" /></p>
 
-Then choosing a page in Apostrophe's page tree.
+... Then choosing a page in Apostrophe's page tree.
 
-<img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-3.png" />
+<p align="center"><img src="https://raw.githubusercontent.com/apostrophecms/apostrophe-rich-text-permalinks/master/screenshots/screenshot-3.png" /></p>
 
 Users can click the usual "link" icon in the rich text editor, then pick "Document" from the "Link Types" dropdown menu.
 
