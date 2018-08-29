@@ -24,9 +24,11 @@ CKEDITOR.plugins.add('permalink', {
       var result = (function() {
         if ((data.type === 'doc') && data.docId) {
           var id = data.docId;
+          var url = '#apostrophe-permalink-' + id + '?updateTitle=' + (data.docUpdateTitle ? '1' : '0');
           return {
             set: {
-              'data-cke-saved-href': '#apostrophe-permalink-' + id + '?updateTitle=' + (data.docUpdateTitle ? '1' : '0')
+              'data-cke-saved-href': url,
+              'href': url
             },
             removed: result.removed
           };
