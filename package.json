@@ -1,6 +1,6 @@
 {
   "name": "apostrophe-rich-text-permalinks",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Enhances ApostropheCMS rich text widgets with smart links, rich inline tooltips, and in-text variable replacement",
   "main": "index.js",
   "scripts": {

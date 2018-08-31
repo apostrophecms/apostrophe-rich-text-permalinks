@@ -60,6 +60,25 @@ modules: {
 
 You may successfully create permalinks to any type of document that has a `_url` property when loaded, i.e. pieces that have corresponding `pieces-pages`, as well as regular pages.
 
+## Projections
+
+By default, a conservative projection is used for joined documents (only `title` and `_url` by default). You can pass your own projection like so:
+
+```
+// in app.js
+modules: {
+  'apostrophe-rich-text-permalinks-rich-text-widgets': {
+    projection: {
+      title: 1,
+      _url: 1,
+      attachment: 1
+    }
+  }
+}
+```
+
+This is particularly useful, if you're including something like `apostrophe-file` as a `join` option.
+
 ## Changing the label and buttons
 
 By default, the new item on the "Link Type" dropdown and the "Browse" button both get labels based on the type of document you are joining with. But if you want to change this language, or you are using an array of types and find the word "Documents" underwhelming, you can set the `browseLabel` and `typeLabel` options of this module as you see fit.
@@ -75,4 +94,3 @@ However, for their convenience, if they click on it while the rich text editor i
 **The link will always point directly to its destination** for all other site visitors, **including search engines,** which means the SEO is good.
 
 On each page load that actually features permalinks, there is a small performance hit to load information about the current location of all the pages being linked to. However Apostrophe makes an effort to load these collectively rather than one at a time. There is no significant performance hit on pages that don't have permalinks.
-
