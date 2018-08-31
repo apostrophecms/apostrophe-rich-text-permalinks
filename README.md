@@ -77,7 +77,7 @@ modules: {
 }
 ```
 
-This is particularly useful, if you're including something like `apostrophe-file` as a `join` option.
+This is particularly useful if you're including something like `apostrophe-file` as a `join` option.
 
 ## Changing the label and buttons
 
