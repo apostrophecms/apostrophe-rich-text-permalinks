@@ -11,35 +11,30 @@ CKEDITOR.plugins.add('permalink', {
         result.docUpdateTitle = true;
         return result;
       }
-      return {
+
+      return _.assign(result, {
         type: 'doc',
         docId: matches[1],
         docUpdateTitle: !!parseInt(matches[2])
-      };
+      });
     };
 
     var superGetLinkAttributes = linkPlugin.getLinkAttributes;
     linkPlugin.getLinkAttributes = function(editor, data) {
       var result = superGetLinkAttributes.call(this, editor, data);
-      var result = (function() {
+
         if ((data.type === 'doc') && data.docId) {
           var id = data.docId;
           var url = '#apostrophe-permalink-' + id + '?updateTitle=' + (data.docUpdateTitle ? '1' : '0');
-          return {
-            set: {
-              'data-cke-saved-href': url,
-              'href': url
-            },
-            removed: result.removed
-          };
+          _.assign(result.set, {
+            'data-cke-saved-href': url,
+            'href': url
+          });
         } else {
           result.removed.push('docId');
-          return result;
         }
 
         return result;
-      })();
-      return result;
     };
 
     CKEDITOR.on('dialogDefinition', function(e) {
@@ -51,6 +46,15 @@ CKEDITOR.plugins.add('permalink', {
       var definition = e.data.definition;
 
       var linkType = get('linkType');
+
+      var superOnLinkTypeChanged = linkType.onChange;
+      linkType.onChange = function() {
+        superOnLinkTypeChanged.call(this);
+        if (this.getValue() === 'doc' && editor.config.linkShowTargetTab) {
+          this.getDialog().showPage('target');
+        }
+      };
+
       linkType.items.push([ apos.modules['apostrophe-rich-text-permalinks'].options.typeLabel, 'doc' ]);
       definition.contents[0].elements.push({
         type: 'vbox',
