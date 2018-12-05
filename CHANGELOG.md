@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.0.4
+
+Support for the `target` attribute. Thanks to Antoine Beauvais-Lacasse.
+
 ### 2.0.3
 
 Support for the `projection` option in case you have custom `setUrl` methods for your pieces that require other properties.
