@@ -68,7 +68,7 @@ apos.define('apostrophe-rich-text-permalinks', {
   construct: function(self, options) {
     self.options = options;
 
-    CKEDITOR.plugins.addExternal('permalink', '/modules/apostrophe-rich-text-permalinks/js/ckeditorPlugins/permalink/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('permalink', apos.prefix + '/modules/apostrophe-rich-text-permalinks/js/ckeditorPlugins/permalink/', 'plugin.js');
 
     self.choosePermalink = function(callback) {
       return apos.create('apostrophe-rich-text-permalinks-editor', _.assign({
