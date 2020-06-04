@@ -1,6 +1,7 @@
 CKEDITOR.plugins.add('permalink', {
   init: function(editor) {
     var linkPlugin = CKEDITOR.plugins.link;
+
     var superParseLinkAttributes = linkPlugin.parseLinkAttributes;
     linkPlugin.parseLinkAttributes = function(editor, element) {
       var href = (element && (element.data('cke-saved-href') || element.getAttribute('href'))) || '';
@@ -78,7 +79,7 @@ CKEDITOR.plugins.add('permalink', {
                   return;
                 }
                 el.aposDocId = doc._id;
-                el.getDialog().getContentElement('info', 'linkDisplayText').setValue(doc.title);
+
                 el.getDialog().getContentElement('info', 'docChosen').setValue(doc.title);
               });
             },
@@ -112,9 +113,31 @@ CKEDITOR.plugins.add('permalink', {
             id: 'docUpdateTitle',
             label: 'Always Show Current Title',
             required: false,
-            setup: function(data) {
-              if (data.docUpdateTitle) {
-                this.setValue('checked', 'checked');
+            onClick : function() {
+              var el = this;
+              var docTitle = el.getDialog()
+                .getContentElement('info', 'docChosen').getValue();
+
+              if (!docTitle) {
+                return;
+              }
+
+
+              if(this.getValue()) {
+                // If enabled, replace the `linkDisplayText` with the doc title.
+                var currentText = el.getDialog()
+                .getContentElement('info', 'linkDisplayText').getValue();
+
+                el.getElement().setAttribute('data-permalink-orig-text', currentText);
+
+                el.getDialog().getContentElement('info', 'linkDisplayText')
+                  .setValue(docTitle);
+              } else {
+                // If disabled, return the original text to `linkDisplayText`
+                var origText = el.getElement().getAttribute('data-permalink-orig-text');
+
+                el.getDialog().getContentElement('info', 'linkDisplayText')
+                  .setValue(origText);
               }
             },
             commit: function(data) {

@@ -1,5 +1,12 @@
 ## Changelog
 
+### 2.0.5
+
+No longer defaults to the selected text being replaced by the document/page
+title. If a user selects "Always Show Current Title," the display text will be
+replaced by the doc title, but the original text will be stashed in case they
+uncheck the box.
+
 ### 2.0.4
 
 Support for the `target` attribute. Thanks to Antoine Beauvais-Lacasse.
