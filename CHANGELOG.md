@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.0.6
+
+Corrected documentation for applying a projection to the join. No code changes.
+
 ### 2.0.5
 
 No longer defaults to the selected text being replaced by the document/page
