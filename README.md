@@ -67,7 +67,7 @@ By default, a conservative projection is used for joined documents (only `title`
 ```
 // in app.js
 modules: {
-  'apostrophe-rich-text-permalinks-rich-text-widgets': {
+  'apostrophe-rich-text-widgets': {
     projection: {
       title: 1,
       _url: 1,
