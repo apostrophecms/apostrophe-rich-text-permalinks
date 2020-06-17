@@ -8,6 +8,8 @@ replaced by the doc title, but the original text will be stashed in case they
 uncheck the box.
 - Corrected documentation for applying a projection to the join. No code changes.
 
+* Corrected documentation for applying a projection to the join, which is critical if you are trying to link to PDF files, a very common use of the module.
+
 ### 2.0.4
 
 Support for the `target` attribute. Thanks to Antoine Beauvais-Lacasse.
