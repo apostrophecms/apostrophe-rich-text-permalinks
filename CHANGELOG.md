@@ -1,15 +1,13 @@
 ## Changelog
 
-### 2.0.6
-
-Corrected documentation for applying a projection to the join. No code changes.
-
 ### 2.0.5
 
-No longer defaults to the selected text being replaced by the document/page
+* No longer defaults to the selected text being replaced by the document/page
 title. If a user selects "Always Show Current Title," the display text will be
 replaced by the doc title, but the original text will be stashed in case they
 uncheck the box.
+
+* Corrected documentation for applying a projection to the join, which is critical if you are trying to link to PDF files, a very common use of the module.
 
 ### 2.0.4
 
