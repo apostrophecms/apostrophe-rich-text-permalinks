@@ -62,19 +62,27 @@ You may successfully create permalinks to any type of document that has a `_url`
 
 ## Projections
 
-By default, a conservative projection is used for joined documents (only `title` and `_url` by default). You can pass your own projection like so:
+You need to add a projection to prevent that too much data from the selected page is loaded.
 
 ```
 // in app.js
 modules: {
-  'apostrophe-rich-text-widgets': {
+  'apostrophe-rich-text-permalinks': {
+    projection: {
+      title: 1,
+      _url: 1,
+    }
+  }
+}
+```
+If you have used a join, of course add it to the projection as well.
+
+```
     projection: {
       title: 1,
       _url: 1,
       attachment: 1
     }
-  }
-}
 ```
 
 This is particularly useful if you're including something like `apostrophe-file` as a `join` option.
